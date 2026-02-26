@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="icon" type="image/png" href="Events/Cover%20photos/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0C1021',
+                        card: '#161B33',
+                        inputbg: '#0D1121',
+                        gold: '#FCE066',
+                        btnyellow: '#FFFCD2',
+                        toggleactive: '#2A3C6B'
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background-color: rgba(22, 27, 51, 0.70);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .glow-button {
+            box-shadow: 0 0 15px rgba(252, 224, 102, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .glow-button:hover {
+            box-shadow: 0 0 25px rgba(252, 224, 102, 0.5);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body class="bg-primary text-white font-sans antialiased min-h-screen selection:bg-gold selection:text-black relative">
+
+    <!-- Background Decor -->
+    <div
+        class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#2A3C6B]/20 rounded-full blur-[100px] pointer-events-none">
+    </div>
+    <div
+        class="fixed bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-gold/10 rounded-full blur-[100px] pointer-events-none">
+    </div>
+
+    <!-- Header -->
+    <header class="glass-panel sticky top-0 z-50 h-[72px] w-full flex items-center px-6 lg:px-8 mb-8">
+        <div class="flex items-center gap-4">
+            <img src="Events/Cover%20photos/logo.png" alt="Logo"
+                class="w-10 h-10 rounded-full border-2 border-gold/40 shadow-[0_0_10px_rgba(252,224,102,0.2)]">
+            <span class="font-serif font-bold text-xl md:text-2xl text-gold tracking-wide">Admin Portal</span>
+        </div>
+        <div class="ml-auto flex items-center gap-4">
+            <div class="flex flex-col items-end md:mr-2">
+                <span id="user-greeting" class="text-sm font-bold text-white tracking-wide">Admin</span>
+                <span id="user-role-badge"
+                    class="text-[10px] text-gold uppercase tracking-wider font-semibold opacity-80">ADMINISTRATOR</span>
+            </div>
+            <div
+                class="w-10 h-10 rounded-full bg-toggleactive flex items-center justify-center font-bold text-gold border border-white/20 shadow-md">
+                A
+            </div>
+            <button onclick="logout()"
+                class="ml-2 px-3 py-1.5 rounded-lg text-xs font-medium text-white/50 hover:text-white hover:bg-white/10 transition-colors border border-transparent hover:border-white/10">Logout</button>
+        </div>
+    </header>
+
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-12 relative z-10">
+
+        <!-- Main Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- Left Column: Teachers -->
+            <div class="flex flex-col gap-8">
+                <!-- Manage Teachers Panel -->
+                <div class="glass-panel rounded-2xl overflow-hidden">
+                    <div class="px-7 py-5 border-b border-white/5 bg-white/[0.02]">
+                        <h2 class="text-xl font-bold text-gold font-serif tracking-wide">Manage Teachers</h2>
+                    </div>
+
+                    <div class="p-7">
+                        <!-- Add Teacher Form -->
+                        <div class="bg-inputbg/50 p-5 rounded-xl border border-white/10 mb-6">
+                            <h3 class="text-sm font-bold text-white/80 uppercase tracking-widest mb-4">Add New Teacher
+                            </h3>
+                            <div class="space-y-3">
+                                <input type="text" id="teacher-id" placeholder="Teacher ID / Username"
+                                    class="w-full bg-inputbg border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold outline-none transition-colors">
+                                <input type="text" id="teacher-name" placeholder="Full Name"
+                                    class="w-full bg-inputbg border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold outline-none transition-colors">
+                                <input type="password" id="teacher-password" placeholder="Password"
+                                    class="w-full bg-inputbg border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold outline-none transition-colors">
+                                <button onclick="addTeacher()"
+                                    class="w-full bg-btnyellow text-black mt-2 font-bold py-3 rounded-xl text-[14px] glow-button">Save
+                                    Teacher</button>
+                            </div>
+                        </div>
+
+                        <!-- Teacher List -->
+                        <h3 class="text-sm font-bold text-white/80 uppercase tracking-widest mb-4">Current Teachers</h3>
+                        <div id="teachers-list" class="flex flex-col gap-3 max-h-[400px] overflow-y-auto pr-2">
+                            <!-- Injected -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Students -->
+            <div class="flex flex-col gap-8">
+                <!-- Manage Students Panel -->
+                <div class="glass-panel rounded-2xl overflow-hidden">
+                    <div class="px-7 py-5 border-b border-white/5 bg-white/[0.02]">
+                        <h2 class="text-xl font-bold text-gold font-serif tracking-wide">Manage Students</h2>
+                    </div>
+
+                    <div class="p-7">
+                        <!-- Add Student Form -->
+                        <div class="bg-inputbg/50 p-5 rounded-xl border border-white/10 mb-6">
+                            <h3 class="text-sm font-bold text-white/80 uppercase tracking-widest mb-4">Add New Student
+                            </h3>
+                            <div class="space-y-3">
+                                <input type="text" id="student-id" placeholder="Student ID / Username"
+                                    class="w-full bg-inputbg border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold outline-none transition-colors">
+                                <input type="text" id="student-name" placeholder="Full Name"
+                                    class="w-full bg-inputbg border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold outline-none transition-colors">
+                                <div class="flex gap-3">
+                                    <input type="number" id="student-age" placeholder="Age"
+                                        class="w-1/2 bg-inputbg border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold outline-none transition-colors">
+                                    <input type="text" id="student-grade" placeholder="Grade"
+                                        class="w-1/2 bg-inputbg border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold outline-none transition-colors">
+                                </div>
+                                <input type="password" id="student-password" placeholder="Password"
+                                    class="w-full bg-inputbg border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold outline-none transition-colors">
+                                <button onclick="addStudent()"
+                                    class="w-full bg-btnyellow text-black mt-2 font-bold py-3 rounded-xl text-[14px] glow-button">Save
+                                    Student</button>
+                            </div>
+                        </div>
+
+                        <!-- Student List -->
+                        <h3 class="text-sm font-bold text-white/80 uppercase tracking-widest mb-4">Current Students</h3>
+                        <div id="students-list" class="flex flex-col gap-3 max-h-[400px] overflow-y-auto pr-2">
+                            <!-- Injected -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const getAuthHeaders = () => {
+            const token = localStorage.getItem('church_token');
+            return {
+                'Content-Type': 'application/json',
+                'Authorization': token ?\`Bearer \${token}\` : ''
+            };
+        };
+
+        async function init() {
+            try {
+                const meRes = await fetch('http://localhost:5000/api/me', { headers: getAuthHeaders() });
+                if (!meRes.ok) {
+                    window.location.href = 'student_login.html';
+                    return;
+                }
+                const currentUser = await meRes.json();
+                if (currentUser.role !== 'admin') {
+                    window.location.href = 'student_login.html'; // Fallback for non-admin
+                    return;
+                }
+
+                document.getElementById('user-greeting').innerText = currentUser.username;
+                
+                await loadTeachers();
+                await loadStudents();
+                
+            } catch (err) {
+                console.error("Initialization error:", err);
+                window.location.href = 'student_login.html';
+            }
+        }
+
+        async function loadTeachers() {
+            try {
+                const res = await fetch('http://localhost:5000/api/admin/staff', { headers: getAuthHeaders() });
+                if (res.ok) {
+                    const staff = await res.json();
+                    const list = document.getElementById('teachers-list');
+                    list.innerHTML = '';
+                    if (staff.length === 0) {
+                        list.innerHTML = '<div class="text-white/40 text-sm italic py-2">No teachers found.</div>';
+                    }
+                    staff.forEach(t => {
+                        list.innerHTML += \`
+                            <div class="flex items-center justify-between bg-inputbg rounded-xl border border-white/5 p-3 hover:border-white/20 transition-colors">
+                                <div>
+                                    <div class="text-white font-semibold text-sm">\${t.name}</div>
+                                    <div class="text-white/50 text-xs text-gold">ID: \${t.teacher_id}</div>
+                                </div>
+                                <button onclick="deleteTeacher('\${t.teacher_id}')" class="px-3 py-1.5 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-lg text-xs font-bold transition-colors">Remove</button>
+                            </div>
+                        \`;
+                    });
+                }
+            } catch(e) { console.error(e); }
+        }
+
+        async function loadStudents() {
+            try {
+                const res = await fetch('http://localhost:5000/api/admin/students', { headers: getAuthHeaders() });
+                if (res.ok) {
+                    const students = await res.json();
+                    const list = document.getElementById('students-list');
+                    list.innerHTML = '';
+                    if (students.length === 0) {
+                        list.innerHTML = '<div class="text-white/40 text-sm italic py-2">No students found.</div>';
+                    }
+                    students.forEach(s => {
+                        list.innerHTML += \`
+                            <div class="flex items-center justify-between bg-inputbg rounded-xl border border-white/5 p-3 hover:border-white/20 transition-colors">
+                                <div>
+                                    <div class="text-white font-semibold text-sm">\${s.name}</div>
+                                    <div class="text-white/50 text-xs">ID: <span class="text-gold">\${s.student_id}</span> | Grade: \${s.grade}</div>
+                                </div>
+                                <button onclick="deleteStudent('\${s.student_id}')" class="px-3 py-1.5 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-lg text-xs font-bold transition-colors">Remove</button>
+                            </div>
+                        \`;
+                    });
+                }
+            } catch(e) { console.error(e); }
+        }
+
+        async function addTeacher() {
+            const username = document.getElementById('teacher-id').value;
+            const name = document.getElementById('teacher-name').value;
+            const password = document.getElementById('teacher-password').value;
+
+            if(!username || !name || !password) return alert("Please fill all fields for Teacher.");
+
+            try {
+                const res = await fetch('http://localhost:5000/api/admin/staff', {
+                    method: 'POST',
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify({username, name, password})
+                });
+                if (res.ok) {
+                    document.getElementById('teacher-id').value = '';
+                    document.getElementById('teacher-name').value = '';
+                    document.getElementById('teacher-password').value = '';
+                    await loadTeachers();
+                } else {
+                    const data = await res.json();
+                    alert(data.error || "Failed to add teacher");
+                }
+            } catch(e) { alert("Error connecting to server."); }
+        }
+
+        async function deleteTeacher(id) {
+            if(!confirm("Are you sure you want to remove this teacher?")) return;
+            try {
+                const res = await fetch(\`http://localhost:5000/api/admin/staff/\${id}\`, {
+                    method: 'DELETE',
+                    headers: getAuthHeaders()
+                });
+                if(res.ok) await loadTeachers();
+            } catch(e) { console.error(e); }
+        }
+
+        async function addStudent() {
+            const username = document.getElementById('student-id').value;
+            const name = document.getElementById('student-name').value;
+            const age = document.getElementById('student-age').value;
+            const grade = document.getElementById('student-grade').value;
+            const password = document.getElementById('student-password').value;
+
+            if(!username || !name || !password) return alert("Please fill at least ID, Name, and Password for Student.");
+
+            try {
+                const res = await fetch('http://localhost:5000/api/admin/students', {
+                    method: 'POST',
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify({username, name, age, grade, password})
+                });
+                if (res.ok) {
+                    document.getElementById('student-id').value = '';
+                    document.getElementById('student-name').value = '';
+                    document.getElementById('student-age').value = '';
+                    document.getElementById('student-grade').value = '';
+                    document.getElementById('student-password').value = '';
+                    await loadStudents();
+                } else {
+                    const data = await res.json();
+                    alert(data.error || "Failed to add student");
+                }
+            } catch(e) { alert("Error connecting to server."); }
+        }
+
+        async function deleteStudent(id) {
+            if(!confirm("Are you sure you want to remove this student?")) return;
+            try {
+                const res = await fetch(\`http://localhost:5000/api/admin/students/\${id}\`, {
+                    method: 'DELETE',
+                    headers: getAuthHeaders()
+                });
+                if(res.ok) await loadStudents();
+            } catch(e) { console.error(e); }
+        }
+
+        async function logout() {
+            await fetch('http://localhost:5000/api/logout', { method: 'POST', headers: getAuthHeaders() });
+            localStorage.removeItem('church_token');
+            window.location.href = 'student_login.html';
+        }
+
+        window.onload = init;
+    </script>
+</body>
+
+</html>

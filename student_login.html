@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>St. Francis Xavier's Church - Portal</title>
+    <link rel="icon" type="image/png" href="Events/Cover%20photos/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0C1021',
+                        card: '#161B33',
+                        inputbg: '#0D1121',
+                        gold: '#FCE066',
+                        btnyellow: '#FFFCD2',
+                        togglebg: '#0F1326',
+                        toggleactive: '#2A3C6B'
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-checkbox {
+            appearance: none;
+            background-color: transparent;
+            margin: 0;
+            width: 1.15em;
+            height: 1.15em;
+            border: 2px solid white;
+            border-radius: 0.25em;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+        }
+
+        .custom-checkbox::before {
+            content: "";
+            width: 0.65em;
+            height: 0.65em;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            background-color: white;
+            transform-origin: bottom left;
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+
+        .custom-checkbox:checked::before {
+            transform: scale(1);
+        }
+
+        .glow-button {
+            box-shadow: 0 0 25px rgba(255, 252, 210, 0.3);
+        }
+
+        .glow-button:hover {
+            box-shadow: 0 0 35px rgba(255, 252, 210, 0.45);
+        }
+
+        /* Subtly lighter border for inputs on focus */
+        .input-focus-ring:focus-within {
+            border-color: rgba(252, 224, 102, 0.5);
+            box-shadow: 0 0 0 1px rgba(252, 224, 102, 0.5);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-primary min-h-screen flex flex-col font-sans antialiased text-white selection:bg-gold selection:text-black">
+    <div class="flex-grow flex items-center justify-center p-4">
+
+        <!-- The Card -->
+        <div
+            class="w-full max-w-[420px] bg-card rounded-[2.5rem] p-8 sm:px-10 sm:py-12 border border-white/5 shadow-2xl relative">
+
+            <!-- Logo Section -->
+            <div class="flex flex-col items-center mb-8">
+                <img src="Events/Cover%20photos/logo.png" alt="Church Logo"
+                    class="w-20 h-20 rounded-full object-cover mb-5 ring-2 ring-gold/40 shadow-[0_0_15px_rgba(252,224,102,0.2)]">
+                <h1 class="font-serif text-[28px] sm:text-[32px] font-bold text-gold tracking-wide mb-2">Welcome Back
+                </h1>
+                <p class="text-white font-medium tracking-wide">Access your portal</p>
+            </div>
+
+            <!-- Toggle Buttons -->
+            <div class="bg-togglebg p-1.5 rounded-2xl flex mb-8 border border-white/5">
+                <button id="student-toggle" onclick="setRole('student')"
+                    class="flex-1 bg-toggleactive text-gold font-medium py-2.5 rounded-xl text-sm transition-all shadow-md">
+                    Student
+                </button>
+                <button id="staff-toggle" onclick="setRole('staff')"
+                    class="flex-1 text-white/90 font-medium py-2.5 rounded-xl text-sm transition-all hover:bg-white/5 hover:text-white">
+                    Staff / Admin
+                </button>
+            </div>
+
+            <!-- Form -->
+            <form class="space-y-6">
+                <!-- User ID -->
+                <div>
+                    <label id="user-label" class="block text-white text-[15px] font-medium mb-2 pl-1">Student ID /
+                        Email</label>
+                    <div class="relative group input-focus-ring rounded-2xl transition-all border border-transparent">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <svg class="h-[22px] w-[22px] text-white/60" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </div>
+                        <input type="text" id="username"
+                            class="w-full pl-12 pr-4 py-[15px] bg-inputbg rounded-2xl text-white placeholder-white/40 focus:outline-none transition-all text-[15px]"
+                            placeholder="Enter your ID" required>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label class="block text-white text-[15px] font-medium mb-2 pl-1">Password</label>
+                    <div class="relative group input-focus-ring rounded-2xl transition-all border border-transparent">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <svg class="h-[22px] w-[22px] text-white/60" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                        </div>
+                        <input type="password" id="password"
+                            class="w-full pl-12 pr-4 py-[15px] bg-inputbg rounded-2xl text-white placeholder-white/40 focus:outline-none transition-all text-[15px]"
+                            placeholder="Enter your password" required>
+                    </div>
+                </div>
+
+                <!-- Remember & Forgot -->
+                <div class="flex items-center justify-between pt-1">
+                    <label class="flex items-center gap-2.5 cursor-pointer group">
+                        <input type="checkbox" class="custom-checkbox">
+                        <span class="text-[14px] text-white font-medium select-none group-hover:text-white/90">Remember
+                            me</span>
+                    </label>
+                    <a href="#" class="text-[14px] text-gold font-medium hover:text-[#FFFCD2] transition-colors">Forgot
+                        password?</a>
+                </div>
+
+                <!-- Sign In Button -->
+                <div class="pt-4 pb-2">
+                    <button type="button" onclick="handleLogin()"
+                        class="relative w-full bg-btnyellow text-black font-semibold text-[17px] py-[18px] rounded-2xl glow-button transition-all transform active:scale-[0.98]">
+                        <span class="absolute left-6 top-1/2 -translate-y-1/2">
+                            <svg class="w-[22px] h-[22px] text-black" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </span>
+                        Sign In
+                    </button>
+                    <p id="error-msg" class="text-red-500 text-sm mt-3 text-center hidden"></p>
+                </div>
+            </form>
+
+            <!-- Bottom Link -->
+            <div class="mt-8 pt-2 text-center text-[15px]">
+                <span class="text-white/80">Need an account?</span>
+                <a href="#" class="text-gold font-bold hover:text-[#FFFCD2] ml-1 transition-colors">Contact
+                    Administrator</a>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        let currentRole = 'student';
+
+        function setRole(role) {
+            currentRole = role;
+            const studentToggle = document.getElementById('student-toggle');
+            const staffToggle = document.getElementById('staff-toggle');
+            const userLabel = document.getElementById('user-label');
+
+            const activeClass = "flex-1 bg-toggleactive text-gold font-medium py-2.5 rounded-xl text-sm transition-all shadow-md";
+            const inactiveClass = "flex-1 text-white/90 font-medium py-2.5 rounded-xl text-sm transition-all hover:bg-white/5 hover:text-white";
+
+            if (role === 'student') {
+                studentToggle.className = activeClass;
+                staffToggle.className = inactiveClass;
+                userLabel.innerText = "Student ID / Email";
+            } else {
+                staffToggle.className = activeClass;
+                studentToggle.className = inactiveClass;
+                userLabel.innerText = "Staff / Admin ID";
+            }
+        }
+
+        async function handleLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-msg');
+
+            errorMsg.classList.add('hidden');
+            errorMsg.innerText = '';
+
+            if (!username || !password) {
+                errorMsg.innerText = 'Please enter both ID and password.';
+                errorMsg.className = "text-red-500 text-sm mt-3 text-center";
+                return;
+            }
+
+            try {
+                // Hitting the Flask backend login route we just created!
+                const response = await fetch('http://localhost:5000/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('church_token', data.token);
+                    errorMsg.innerText = "Logged in! Welcome " + data.username + " (" + data.role + ")";
+                    errorMsg.className = "text-green-500 text-sm mt-3 text-center";
+
+                    /* Wait for 1 second so you can see the success message, 
+                       then we can redirect them to the new dashboard */
+                    setTimeout(() => {
+                        if (data.role === 'admin') {
+                            window.location.href = 'admin_dashboard.html';
+                        } else if (data.role === 'staff') {
+                            window.location.href = 'teacher_dashboard.html';
+                        } else {
+                            window.location.href = 'student_dashboard.html';
+                        }
+                    }, 1000);
+                } else {
+                    errorMsg.innerText = data.error || 'Login failed';
+                    errorMsg.className = "text-red-500 text-sm mt-3 text-center";
+                }
+            } catch (err) {
+                errorMsg.innerText = 'Could not connect to server. Make sure `python app.py` is running natively.';
+                errorMsg.className = "text-red-500 text-sm mt-3 text-center";
+            }
+        }
+    </script>
+</body>
+
+</html>

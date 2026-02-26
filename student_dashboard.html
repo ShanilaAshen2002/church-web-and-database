@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Dashboard</title>
+    <link rel="icon" type="image/png" href="Events/Cover%20photos/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0C1021',
+                        card: '#161B33',
+                        inputbg: '#0D1121',
+                        gold: '#FCE066',
+                        btnyellow: '#FFFCD2',
+                        toggleactive: '#2A3C6B'
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background-color: rgba(22, 27, 51, 0.70);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .glow-button {
+            box-shadow: 0 0 15px rgba(252, 224, 102, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .glow-button:hover {
+            box-shadow: 0 0 25px rgba(252, 224, 102, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .calendar-nav-btn:hover {
+            color: #FCE066;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body class="bg-primary text-white font-sans antialiased min-h-screen selection:bg-gold selection:text-black relative">
+
+    <!-- Background Decor -->
+    <div
+        class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#2A3C6B]/20 rounded-full blur-[100px] pointer-events-none">
+    </div>
+    <div
+        class="fixed bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-gold/10 rounded-full blur-[100px] pointer-events-none">
+    </div>
+
+    <!-- Header -->
+    <header class="glass-panel sticky top-0 z-50 h-[72px] w-full flex items-center px-6 lg:px-8 mb-8">
+        <div class="flex items-center gap-4">
+            <img src="Events/Cover%20photos/logo.png" alt="Logo"
+                class="w-10 h-10 rounded-full border-2 border-gold/40 shadow-[0_0_10px_rgba(252,224,102,0.2)]">
+            <span class="font-serif font-bold text-xl md:text-2xl text-gold tracking-wide">St. Francis Xavier's</span>
+        </div>
+        <div class="ml-auto flex items-center gap-4">
+            <div class="flex flex-col items-end md:mr-2">
+                <span id="user-greeting" class="text-sm font-bold text-white tracking-wide">Loading...</span>
+                <span id="user-role-badge"
+                    class="text-[10px] text-gold uppercase tracking-wider font-semibold opacity-80">...</span>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-toggleactive flex items-center justify-center font-bold text-gold border border-white/20 shadow-md transform hover:scale-105 transition-transform"
+                id="user-avatar">
+                ?
+            </div>
+            <button onclick="logout()"
+                class="ml-2 px-3 py-1.5 rounded-lg text-xs font-medium text-white/50 hover:text-white hover:bg-white/10 transition-colors border border-transparent hover:border-white/10">Logout</button>
+        </div>
+    </header>
+
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-12 relative z-10">
+
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="font-serif text-[36px] sm:text-[44px] font-bold text-white tracking-tight drop-shadow-lg">
+                Dashboard</h1>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+            <!-- Left Column: Main Feed -->
+            <div class="lg:col-span-8 flex flex-col gap-8">
+
+                <!-- Latest Announcements Canvas -->
+                <div class="glass-panel rounded-2xl overflow-hidden group">
+                    <div class="px-7 py-5 border-b border-white/5 bg-white/[0.02]">
+                        <h2 class="text-xl font-bold text-gold font-serif tracking-wide">Latest Announcements</h2>
+                    </div>
+                    <div class="p-7">
+                        <div
+                            class="w-full h-[450px] bg-inputbg rounded-2xl border border-white/10 relative flex flex-col items-center justify-center overflow-hidden shadow-inner cursor-pointer hover:border-white/20 transition-colors">
+                            <div class="absolute inset-0 bg-gradient-to-br from-[#161B33]/0 to-[#0C1021]/80 z-0"></div>
+
+                            <img src="Events/Cover%20photos/logo.png"
+                                class="w-24 h-24 mb-6 opacity-20 contrast-150 rounded-full blur-sm group-hover:blur-none group-hover:opacity-40 transition-all duration-700 z-10">
+
+                            <h3
+                                class="text-2xl font-serif font-bold text-white/70 mb-2 z-10 group-hover:text-gold transition-colors">
+                                Digital Notice Board</h3>
+                            <p class="text-white/40 z-10 group-hover:text-white/60 transition-colors">All important
+                                updates are tracked in the interactive feed.</p>
+
+                            <div class="absolute bottom-4 right-5 opacity-40 flex items-center gap-1.5 z-10">
+                                <span class="w-1.5 h-1.5 bg-gold rounded-full animate-pulse"></span>
+                                <span class="text-[11px] font-semibold tracking-widest uppercase text-gold">Live
+                                    System</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline / Assignments -->
+                <div class="glass-panel rounded-2xl overflow-hidden">
+                    <div class="px-7 py-5 border-b border-white/5 bg-white/[0.02]">
+                        <h2 class="text-xl font-bold text-gold font-serif tracking-wide">Timeline</h2>
+                    </div>
+                    <div class="p-8">
+                        <div
+                            class="flex flex-col items-center py-12 text-white/40 bg-white/[0.01] rounded-xl border border-white/[0.02] border-dashed">
+                            <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-4">
+                                <svg class="w-8 h-8 text-white/20" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-[15px] font-medium tracking-wide">No upcoming activities due</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Sidebar -->
+            <div class="lg:col-span-4 flex flex-col gap-8">
+
+                <!-- Calendar Widget -->
+                <div class="glass-panel rounded-2xl overflow-hidden">
+                    <div class="px-6 py-5 border-b border-white/5 bg-white/[0.02]">
+                        <h2 class="text-[18px] font-bold text-gold font-serif tracking-wide">Calendar</h2>
+                    </div>
+
+                    <div class="p-6">
+                        <!-- Navigation -->
+                        <div class="flex items-center justify-between mb-6 px-1">
+                            <button class="calendar-nav-btn text-white/50 transition-all p-1" onclick="changeMonth(-1)">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                            </button>
+                            <span class="text-[16px] font-bold tracking-wide" id="current-month-display">...</span>
+                            <button class="calendar-nav-btn text-white/50 transition-all p-1" onclick="changeMonth(1)">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Days of Week -->
+                        <div
+                            class="grid grid-cols-7 text-center text-[12px] font-bold text-white/30 uppercase tracking-widest mb-4">
+                            <div>Mo</div>
+                            <div>Tu</div>
+                            <div>We</div>
+                            <div>Th</div>
+                            <div>Fr</div>
+                            <div class="text-gold/50">Sa</div>
+                            <div class="text-gold/50">Su</div>
+                        </div>
+
+                        <!-- Grid -->
+                        <div class="grid grid-cols-7 text-center text-[14px] font-medium gap-y-3 gap-x-1"
+                            id="calendar-grid">
+                            <!-- Injected -->
+                        </div>
+
+                        <hr class="my-6 border-white/10">
+
+                        <!-- Event List (Under Calendar) -->
+                        <div class="mt-4">
+                            <h3 class="font-bold text-white/60 mb-4 text-[11px] uppercase tracking-widest text-center">
+                                Important Dates</h3>
+                            <div id="calendar-events-list" class="flex flex-col gap-3">
+                                <!-- Events injected here -->
+                            </div>
+                        </div>
+
+                        <!-- Staff Controls -->
+                        <div id="staff-calendar-form"
+                            class="hidden mt-6 pt-6 border-t border-white/10 bg-white/[0.02] -mx-6 -mb-6 px-6 pb-6">
+                            <div class="flex items-center gap-2 mb-4 text-green-400">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4">
+                                    </path>
+                                </svg>
+                                <h3 class="font-bold text-[11px] uppercase tracking-widest">Administrator Controls</h3>
+                            </div>
+
+                            <div class="space-y-3">
+                                <input type="date" id="event-date"
+                                    class="w-full bg-inputbg border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold outline-none transition-colors">
+                                <input type="text" id="event-title" placeholder="E.g. Feast of St. Sebastian"
+                                    class="w-full bg-inputbg border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold outline-none transition-colors">
+                            </div>
+                            <button onclick="addCalendarEvent()"
+                                class="w-full bg-btnyellow text-black mt-4 font-bold py-3 rounded-xl text-[14px] glow-button">Publish
+                                Event</button>
+                            <p id="cal-msg" class="text-[13px] text-red-400 mt-3 text-center hidden"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Notice Feed Widget -->
+                <div class="glass-panel rounded-2xl overflow-hidden flex flex-col max-h-[600px]">
+                    <div class="px-6 py-5 border-b border-white/5 bg-white/[0.02]">
+                        <h2 class="text-[18px] font-bold text-gold font-serif tracking-wide">Live Feed</h2>
+                    </div>
+
+                    <div class="p-6 flex flex-col gap-5 overflow-y-auto" id="announcements-container">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+        let eventsData = [];
+        let viewDate = new Date(); // Right now, dynamically sets to current date
+
+        // Override to show February 2026 based on the prompt's context / screenshot
+        viewDate = new Date(2026, 1, 1);
+
+        const getAuthHeaders = () => {
+            const token = localStorage.getItem('church_token');
+            return {
+                'Content-Type': 'application/json',
+                'Authorization': token ? `Bearer ${token}` : ''
+            };
+        };
+
+        async function init() {
+            try {
+                const meRes = await fetch('http://localhost:5000/api/me', { headers: getAuthHeaders() });
+                if (!meRes.ok) {
+                    window.location.href = 'student_login.html';
+                    return;
+                }
+                currentUser = await meRes.json();
+
+                // Set Profile
+                document.getElementById('user-greeting').innerText = currentUser.username;
+                document.getElementById('user-role-badge').innerText = currentUser.role;
+                document.getElementById('user-avatar').innerText = currentUser.username.charAt(0).toUpperCase();
+
+                // Show Staff panel
+                if (['staff', 'admin'].includes(currentUser.role)) {
+                    document.getElementById('staff-calendar-form').classList.remove('hidden');
+                }
+
+                await loadCalendar();
+                await loadNotices();
+
+            } catch (err) {
+                console.error("Initialization error:", err);
+                window.location.href = 'student_login.html'; // Fallback
+            }
+        }
+
+        async function loadNotices() {
+            try {
+                const res = await fetch('http://localhost:5000/api/notices', { headers: getAuthHeaders() });
+                if (res.ok) {
+                    const data = await res.json();
+                    const container = document.getElementById('announcements-container');
+                    container.innerHTML = '';
+
+                    if (data && data.length > 0) {
+                        data.forEach(notice => {
+                            const d = new Date(notice.created_at);
+                            const dateStr = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) + ' at ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                            const html = `
+                             <div class="bg-inputbg/60 p-4 rounded-xl border border-white/5 hover:border-white/10 transition-colors">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div class="text-white/40 text-[11px] font-medium tracking-wide">${dateStr}</div>
+                                    <div class="text-primary text-[10px] bg-gold px-2 py-0.5 rounded font-bold uppercase tracking-wider">${notice.created_by}</div>
+                                </div>
+                                <h4 class="text-white font-semibold mb-1.5 text-[15px] leading-snug">${notice.title}</h4>
+                                <div class="text-white/60 text-[13px] leading-relaxed">${notice.content}</div>
+                            </div>
+                            `;
+                            container.innerHTML += html;
+                        });
+                        container.innerHTML += `<div class="text-center mt-2"><button class="text-white/40 hover:text-gold transition-colors text-xs font-bold uppercase tracking-widest border-b border-white/10 hover:border-gold pb-1">Load Older</button></div>`;
+                    } else {
+                        container.innerHTML = '<div class="text-center py-6 text-white/40 text-sm">No recent notices</div>';
+                    }
+                }
+            } catch (e) {
+                console.error("Failed fetching notices", e);
+            }
+        }
+
+        async function loadCalendar() {
+            try {
+                const res = await fetch('http://localhost:5000/api/calendar', { headers: getAuthHeaders() });
+                if (res.ok) {
+                    eventsData = await res.json();
+                }
+            } catch (e) {
+                console.error("Failed fetching calendar", e);
+            }
+            renderCalendar();
+        }
+
+        function renderCalendar() {
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            document.getElementById('current-month-display').innerText = `${monthNames[viewDate.getMonth()]} ${viewDate.getFullYear()}`;
+
+            const grid = document.getElementById('calendar-grid');
+            grid.innerHTML = '';
+
+            const firstDay = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1).getDay();
+            const daysInMonth = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 0).getDate();
+
+            let offset = firstDay - 1;
+            if (offset === -1) offset = 6;
+
+            for (let i = 0; i < offset; i++) grid.innerHTML += `<div></div>`;
+
+            for (let i = 1; i <= daysInMonth; i++) {
+                const currentDateStr = `${viewDate.getFullYear()}-${String(viewDate.getMonth() + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+                // Does this day have an event?
+                const hasEvent = eventsData.some(e => e.event_date.startsWith(currentDateStr));
+
+                let btnClasses = "w-8 h-8 flex items-center justify-center rounded-full cursor-pointer transition-all relative mx-auto";
+                let dotHtml = "";
+
+                if (hasEvent) {
+                    btnClasses += " bg-toggleactive text-white font-bold shadow-[0_0_10px_rgba(42,60,107,0.8)] border border-gold/30";
+                    dotHtml = '<span class="w-1.5 h-1.5 bg-gold rounded-full absolute -bottom-0.5 shadow-[0_0_5px_rgba(252,224,102,0.8)]"></span>';
+                } else {
+                    btnClasses += " hover:bg-white/10 text-white/70";
+                }
+
+                grid.innerHTML += `
+                    <div class="flex justify-center items-center py-0.5">
+                        <span class="${btnClasses} hover:scale-110">
+                            ${i}
+                            ${dotHtml}
+                        </span>
+                    </div>
+                `;
+            }
+
+            renderEventList();
+        }
+
+        function renderEventList() {
+            const list = document.getElementById('calendar-events-list');
+            list.innerHTML = '';
+
+            // Show events for current month
+            const visibleEvents = eventsData.filter(e => {
+                const ed = new Date(e.event_date);
+                return ed.getMonth() === viewDate.getMonth() && ed.getFullYear() === viewDate.getFullYear();
+            });
+
+            if (visibleEvents.length === 0) {
+                list.innerHTML = '<div class="text-center py-4 text-white/30 text-[13px] italic">Enjoy the free time—no events scheduled!</div>';
+                return;
+            }
+
+            visibleEvents.forEach(evt => {
+                const d = new Date(evt.event_date);
+                // "24 Feb"
+                const dayStr = String(d.getDate()).padStart(2, '0');
+                const monthStr = d.toLocaleDateString('en-GB', { month: 'short' }).toUpperCase();
+
+                let delBtn = "";
+                if (['staff', 'admin'].includes(currentUser.role)) {
+                    delBtn = `<button onclick="deleteEvent(${evt.id})" title="Remove Event" class="w-7 h-7 flex items-center justify-center rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition-colors ml-2"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>`;
+                }
+
+                list.innerHTML += `
+                    <div class="flex items-center bg-inputbg rounded-xl border border-white/5 p-2 pr-3 hover:border-gold/30 transition-colors group">
+                        <div class="flex flex-col items-center justify-center bg-white/5 rounded-lg w-12 h-12 text-gold">
+                            <span class="text-[10px] font-bold tracking-widest leading-none mb-0.5">${monthStr}</span>
+                            <span class="text-[18px] font-black leading-none">${dayStr}</span>
+                        </div>
+                        <div class="text-white/90 text-[13px] font-semibold flex-1 truncate ml-3">${evt.title}</div>
+                        ${delBtn}
+                    </div>
+                `;
+            });
+        }
+
+        function changeMonth(delta) {
+            viewDate.setMonth(viewDate.getMonth() + delta);
+            renderCalendar();
+        }
+
+        async function addCalendarEvent() {
+            const dateVal = document.getElementById('event-date').value;
+            const titleVal = document.getElementById('event-title').value;
+            const msg = document.getElementById('cal-msg');
+            msg.classList.add('hidden');
+
+            if (!dateVal || !titleVal) {
+                msg.innerText = "Please select a date and enter a title.";
+                msg.classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const res = await fetch('http://localhost:5000/api/staff/calendar', {
+                    method: 'POST',
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify({ event_date: dateVal, title: titleVal })
+                });
+
+                if (res.ok) {
+                    document.getElementById('event-title').value = '';
+
+                    // Move view to the newly added event's month
+                    const newD = new Date(dateVal);
+                    viewDate.setFullYear(newD.getFullYear(), newD.getMonth(), 1);
+
+                    await loadCalendar();
+                } else {
+                    const data = await res.json();
+                    msg.innerText = data.error || "Failed to add event.";
+                    msg.classList.remove('hidden');
+                }
+            } catch (e) {
+                msg.innerText = "Error connecting to server.";
+                msg.classList.remove('hidden');
+            }
+        }
+
+        async function deleteEvent(id) {
+            try {
+                const res = await fetch(`http://localhost:5000/api/staff/calendar/${id}`, {
+                    method: 'DELETE',
+                    headers: getAuthHeaders()
+                });
+                if (res.ok) {
+                    await loadCalendar();
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function logout() {
+            await fetch('http://localhost:5000/api/logout', { method: 'POST', headers: getAuthHeaders() });
+            localStorage.removeItem('church_token');
+            window.location.href = 'student_login.html';
+        }
+
+        window.onload = init;
+    </script>
+</body>
+
+</html>
