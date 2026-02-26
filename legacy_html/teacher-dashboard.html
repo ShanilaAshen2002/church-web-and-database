@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher/Admin Dashboard - Sunday School Portal</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        church: {
+                            purple: '#502D80',
+                            gold: '#FFD700',
+                            violet: '#301934',
+                            cream: '#FCFBF4',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-[#1e293b] text-white flex flex-col shadow-xl">
+        <div class="p-6 text-center border-b border-white/10">
+            <h2 class="text-2xl font-serif text-church-gold font-bold">Staff Portal</h2>
+            <p class="text-sm mt-1 text-white/50" id="role-display">Role: Teacher</p>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+
+            <a href="#" onclick="showSection('attendance', this)"
+                class="flex items-center px-4 py-3 bg-white/10 rounded-lg text-white font-medium transition-colors hover:bg-white/20">
+                Mark Attendance
+            </a>
+            <a href="#" onclick="showSection('lectures', this)"
+                class="flex items-center px-4 py-3 rounded-lg text-white/80 font-medium transition-colors hover:bg-white/10 hover:text-white">
+                Manage Lectures
+            </a>
+            <a href="#" onclick="showSection('notices', this)"
+                class="flex items-center px-4 py-3 rounded-lg text-white/80 font-medium transition-colors hover:bg-white/10 hover:text-white">
+                Manage Notices
+            </a>
+            <a href="#" onclick="showSection('students', this)"
+                class="flex items-center px-4 py-3 rounded-lg text-white/80 font-medium transition-colors hover:bg-white/10 hover:text-white admin-only">
+                Manage Students & Staff (Admin)
+            </a>
+
+        </nav>
+        <div class="p-4 border-t border-white/10 text-center">
+            <!-- Role defined by login (passed in URL) -->
+            <div id="auth-role-display"
+                class="bg-[#0f172a] text-white p-2 rounded w-full border border-gray-600 text-sm mb-4 font-semibold">
+                Access Level: Teacher
+            </div>
+            <a href="login.html"
+                class="flex items-center justify-center px-4 py-2 text-sm text-red-400 hover:text-red-300 transition-colors">
+                Sign Out
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden">
+        <!-- Header -->
+        <header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center z-10">
+            <h1 id="page-title" class="text-2xl font-bold text-slate-800">Mark Attendance</h1>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm font-medium">Hello, Teacher Malkanthi</span>
+                <div
+                    class="h-10 w-10 bg-church-purple text-white rounded-full flex items-center justify-center font-bold text-lg">
+                    M</div>
+            </div>
+        </header>
+
+        <!-- Dynamic Content Area -->
+        <div class="flex-1 overflow-y-auto p-8 bg-slate-50">
+
+            <!-- Mark Attendance Section -->
+            <section id="section-attendance" class="block space-y-6 max-w-5xl mx-auto">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-800">Attendance Sheet</h2>
+                            <p class="text-slate-500 text-sm">Select Grade and Date to mark attendance</p>
+                        </div>
+                        <div class="flex gap-4">
+                            <input type="date" value="2026-10-18"
+                                class="border border-gray-300 rounded-lg px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-church-purple">
+                            <select
+                                class="border border-gray-300 rounded-lg px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-church-purple">
+                                <option>Grade 8</option>
+                                <option class="admin-only hidden">Grade 9</option>
+                            </select>
+                            <button
+                                class="bg-church-purple text-white px-6 py-2 rounded-lg text-sm font-semibold shadow hover:bg-church-violet transition-colors">Load
+                                Roster</button>
+                        </div>
+                    </div>
+
+                    <!-- Dummy Table -->
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50 text-slate-500 text-sm border-y border-gray-200">
+                                <th class="p-4 font-medium">Student Name</th>
+                                <th class="p-4 font-medium">Email / ID</th>
+                                <th class="p-4 font-medium">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100 text-sm">
+                            <tr class="hover:bg-gray-50/50">
+                                <td class="p-4 font-semibold text-slate-800">Sanjeewa Perera</td>
+                                <td class="p-4 text-slate-500">sanjeewa@example.com</td>
+                                <td class="p-4">
+                                    <select
+                                        class="border border-gray-300 rounded px-2 py-1 outline-none text-green-700 bg-green-50 focus:ring-2 focus:ring-church-gold">
+                                        <option value="present" selected>Present</option>
+                                        <option value="absent">Absent</option>
+                                        <option value="late">Late</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50/50">
+                                <td class="p-4 font-semibold text-slate-800">Nimanthi Fernando</td>
+                                <td class="p-4 text-slate-500">nimanthi@example.com</td>
+                                <td class="p-4">
+                                    <select
+                                        class="border border-gray-300 rounded px-2 py-1 outline-none text-red-700 bg-red-50 focus:ring-2 focus:ring-church-gold">
+                                        <option value="present">Present</option>
+                                        <option value="absent" selected>Absent</option>
+                                        <option value="late">Late</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-6 flex justify-end">
+                        <button
+                            class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-bold shadow-md transition-colors">Save
+                            Attendance</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Manage Lectures Section -->
+            <section id="section-lectures" class="hidden space-y-6 max-w-5xl mx-auto">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                    <h2 class="text-xl font-bold text-slate-800 mb-4">Add New Lecture Material</h2>
+                    <form class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-sm font-medium text-slate-700 block mb-1">Title</label>
+                                <input type="text" placeholder="e.g. Parables of Jesus"
+                                    class="w-full border border-gray-300 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-church-purple">
+                            </div>
+                            <div>
+                                <label class="text-sm font-medium text-slate-700 block mb-1">Target Grade</label>
+                                <select
+                                    class="w-full border border-gray-300 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-church-purple">
+                                    <option>Grade 8</option>
+                                    <option>Grade 9</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-slate-700 block mb-1">Description (Optional)</label>
+                            <textarea rows="2"
+                                class="w-full border border-gray-300 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-church-purple"></textarea>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-slate-700 block mb-1">Upload File (PDF, Video,
+                                etc.)</label>
+                            <input type="file"
+                                class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-church-purple/10 file:text-church-purple hover:file:bg-church-purple/20 transition-colors">
+                        </div>
+                        <div class="pt-2">
+                            <button type="button" onclick="alert('Mock: Lecture added successfully!')"
+                                class="bg-church-purple text-white px-6 py-2 rounded-lg font-bold shadow-md hover:bg-church-violet transition-colors">Publish
+                                Material</button>
+                        </div>
+                    </form>
+                </div>
+
+                <h3 class="font-bold text-slate-700 mt-8 mb-4">Previously Uploaded Materials</h3>
+                <!-- List -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 divide-y divide-gray-100">
+                    <div class="p-4 flex justify-between items-center group">
+                        <div>
+                            <h4 class="font-bold text-slate-800">The Parables of Jesus (PDF)</h4>
+                            <p class="text-sm text-slate-500">Grade 8 • Added 2 days ago</p>
+                        </div>
+                        <button
+                            class="text-red-500 hover:text-red-700 font-medium px-3 py-1 bg-red-50 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">Remove</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Manage Notices Section -->
+            <section id="section-notices" class="hidden space-y-6 max-w-5xl mx-auto">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                    <h2 class="text-xl font-bold text-slate-800 mb-4">Post a Notice</h2>
+                    <form class="space-y-4">
+                        <div>
+                            <label class="text-sm font-medium text-slate-700 block mb-1">Notice Title</label>
+                            <input type="text" placeholder="e.g. Choir Practice Changed"
+                                class="w-full border border-gray-300 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-church-purple">
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-slate-700 block mb-1">Content</label>
+                            <textarea rows="4" placeholder="Type your notice here..."
+                                class="w-full border border-gray-300 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-church-purple"></textarea>
+                        </div>
+                        <div class="pt-2">
+                            <button type="button" onclick="alert('Mock: Notice Posted!')"
+                                class="bg-church-gold text-church-violet px-6 py-2 rounded-lg font-bold shadow-md hover:bg-yellow-400 transition-colors">Post
+                                to Notice Board</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Admin Manage Section -->
+            <section id="section-students" class="hidden space-y-6 max-w-5xl mx-auto">
+                <div class="bg-red-50 border border-red-200 p-6 rounded-2xl shadow-sm">
+                    <h2 class="text-xl font-bold text-red-800 mb-2">Admin Dashboard Panel</h2>
+                    <p class="text-red-600 text-sm mb-6">This section is strictly restricted to designated
+                        administrators. Here you can add/remove students and teachers.</p>
+
+                    <div class="flex gap-4">
+                        <button
+                            class="bg-white border-2 border-slate-300 hover:border-church-purple text-slate-700 font-bold px-6 py-3 rounded-xl shadow-sm transition-colors block text-center flex-1">
+                            + Register New Teacher
+                        </button>
+                        <button
+                            class="bg-white border-2 border-slate-300 hover:border-church-purple text-slate-700 font-bold px-6 py-3 rounded-xl shadow-sm transition-colors block text-center flex-1">
+                            + Register New Student
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        // Set initial state
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentUserRole = urlParams.get('role') || 'teacher';
+
+        function initRoleAccess() {
+            const adminElements = document.querySelectorAll('.admin-only');
+            const authRoleDisplay = document.getElementById('auth-role-display');
+
+            if (currentUserRole === 'admin') {
+                document.getElementById('role-display').innerText = "Role: Administrator";
+                authRoleDisplay.innerText = "Access Level: Admin";
+                authRoleDisplay.classList.add('bg-red-900', 'border-red-500');
+                adminElements.forEach(el => {
+                    el.classList.remove('hidden');
+                    // Special case for select options
+                    if (el.tagName !== "OPTION") el.style.display = 'flex';
+                });
+            } else {
+                document.getElementById('role-display').innerText = "Role: Teacher";
+                authRoleDisplay.innerText = "Access Level: Teacher";
+                adminElements.forEach(el => {
+                    el.classList.add('hidden');
+                    if (el.tagName !== "OPTION") el.style.display = 'none';
+                });
+
+                // If they somehow have the student management tab visible, kick them back
+                if (!document.getElementById('section-students').classList.contains('hidden')) {
+                    showSection('attendance', document.querySelector('aside nav a'));
+                }
+            }
+        }
+
+        initRoleAccess();
+
+        function showSection(sectionId, clickedElement) {
+            // Hide all sections
+            document.querySelectorAll('section[id^="section-"]').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('block');
+            });
+
+            // Show target section
+            const target = document.getElementById('section-' + sectionId);
+            if (target) {
+                target.classList.remove('hidden');
+                target.classList.add('block');
+            }
+
+            // Update title
+            const titles = {
+                'attendance': 'Mark Attendance',
+                'lectures': 'Manage Lectures',
+                'notices': 'Manage Notices',
+                'students': 'Admin: Management'
+            };
+            document.getElementById('page-title').innerText = titles[sectionId];
+
+            // Update active nav state
+            document.querySelectorAll('aside nav a').forEach(el => {
+                el.classList.remove('bg-white/10', 'text-white');
+                el.classList.add('text-white/80');
+            });
+            clickedElement.classList.add('bg-white/10', 'text-white');
+            clickedElement.classList.remove('text-white/80');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Sunday School Portal</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        church: {
+                            purple: '#502D80',
+                            gold: '#FFD700',
+                            violet: '#301934',
+                            cream: '#FCFBF4',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 text-slate-800 font-sans min-h-screen flex">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-church-purple text-white hidden md:flex flex-col shadow-xl">
+        <div class="p-6 text-center border-b border-white/10">
+            <h2 class="text-2xl font-serif text-church-gold font-bold">Student Portal</h2>
+            <p class="text-sm mt-1 text-white/70">Grade 8</p>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a href="#" onclick="showSection('notices')"
+                class="flex items-center px-4 py-3 bg-white/10 rounded-lg text-white font-medium transition-colors hover:bg-white/20">
+                Notice Board
+            </a>
+            <a href="#" onclick="showSection('lectures')"
+                class="flex items-center px-4 py-3 rounded-lg text-white/80 font-medium transition-colors hover:bg-white/10 hover:text-white">
+                My Lectures
+            </a>
+            <a href="#" onclick="showSection('attendance')"
+                class="flex items-center px-4 py-3 rounded-lg text-white/80 font-medium transition-colors hover:bg-white/10 hover:text-white">
+                Attendance Record
+            </a>
+            <a href="#" onclick="showSection('calendar')"
+                class="flex items-center px-4 py-3 rounded-lg text-white/80 font-medium transition-colors hover:bg-white/10 hover:text-white">
+                Church Calendar
+            </a>
+        </nav>
+        <div class="p-4 border-t border-white/10">
+            <a href="login.html"
+                class="flex items-center px-4 py-2 text-sm text-white/70 hover:text-white transition-colors">
+                <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Sign Out
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-slate-50">
+        <!-- Header -->
+        <header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center">
+            <h1 id="page-title" class="text-2xl font-bold text-slate-800">Notice Board</h1>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm font-medium">Hello, Sanjeewa</span>
+                <div
+                    class="h-10 w-10 bg-church-gold text-church-purple rounded-full flex items-center justify-center font-bold text-lg">
+                    S</div>
+            </div>
+        </header>
+
+        <!-- Scrollable Dashboard Content -->
+        <div class="flex-1 overflow-y-auto p-8">
+
+            <!-- Notice Board Section -->
+            <section id="section-notices" class="block space-y-6">
+                <!-- Example Notice -->
+                <div
+                    class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm border-l-4 border-l-church-gold hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-church-purple">Sunday School Reopening</h3>
+                        <span
+                            class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full font-semibold">Important</span>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">Posted by: Father Admin • Oct 12, 2026</p>
+                    <p class="text-slate-700">Dear Students, Sunday school will officially resume next week following
+                        the annual feast. Please ensure you bring your new term books.</p>
+                </div>
+
+                <!-- Example Notice 2 -->
+                <div
+                    class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm border-l-4 border-l-church-purple hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-church-purple">Choir Practice</h3>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">Posted by: Teacher Malkanthi • Oct 10, 2026</p>
+                    <p class="text-slate-700">A reminder that choir practice for Grade 8 students will be held this
+                        Saturday at 3:00 PM in the main hall.</p>
+                </div>
+            </section>
+
+            <!-- Lectures Section -->
+            <section id="section-lectures" class="hidden space-y-6">
+                <h2 class="text-xl font-semibold mb-4 text-slate-700">Recent Materials for Grade 8</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div
+                        class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm group hover:-translate-y-1 transition-transform">
+                        <div
+                            class="h-12 w-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">The Parables of Jesus</h3>
+                        <p class="text-sm text-slate-500 mb-4">Added 2 days ago</p>
+                        <button
+                            class="w-full py-2 bg-church-purple/10 text-church-purple rounded-lg font-semibold group-hover:bg-church-purple group-hover:text-white transition-colors">Download
+                            PDF</button>
+                    </div>
+
+                    <div
+                        class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm group hover:-translate-y-1 transition-transform">
+                        <div
+                            class="h-12 w-12 bg-green-100 text-green-600 rounded-lg flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">History of the Church</h3>
+                        <p class="text-sm text-slate-500 mb-4">Added 1 week ago</p>
+                        <button
+                            class="w-full py-2 bg-church-purple/10 text-church-purple rounded-lg font-semibold group-hover:bg-church-purple group-hover:text-white transition-colors">Watch
+                            Video</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Attendance Section -->
+            <section id="section-attendance" class="hidden">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+                        <h3 class="font-bold text-lg text-slate-800">October 2026 Attendance</h3>
+                        <span class="bg-green-100 text-green-800 text-sm font-bold px-3 py-1 rounded-full">90%
+                            Present</span>
+                    </div>
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50 text-slate-500 text-sm border-b border-gray-100">
+                                <th class="p-4 font-medium">Date</th>
+                                <th class="p-4 font-medium">Status</th>
+                                <th class="p-4 font-medium">Marked By</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100 text-sm">
+                            <tr>
+                                <td class="p-4 font-medium text-slate-800">Sun, Oct 18</td>
+                                <td class="p-4"><span
+                                        class="text-green-600 font-semibold bg-green-50 px-2 py-1 rounded">Present</span>
+                                </td>
+                                <td class="p-4 text-slate-500">Teacher Malkanthi</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-medium text-slate-800">Sun, Oct 11</td>
+                                <td class="p-4"><span
+                                        class="text-red-600 font-semibold bg-red-50 px-2 py-1 rounded">Absent</span>
+                                </td>
+                                <td class="p-4 text-slate-500">Teacher Malkanthi</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-medium text-slate-800">Sun, Oct 04</td>
+                                <td class="p-4"><span
+                                        class="text-green-600 font-semibold bg-green-50 px-2 py-1 rounded">Present</span>
+                                </td>
+                                <td class="p-4 text-slate-500">Teacher Malkanthi</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Calendar Section -->
+            <section id="section-calendar" class="hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                        <h3 class="font-bold text-lg text-slate-800 mb-6 font-serif">October Events</h3>
+
+                        <div class="space-y-4">
+                            <!-- Event 1 -->
+                            <div class="flex items-start border-l-2 border-church-gold pl-4 pb-4">
+                                <div class="w-16 flex-shrink-0 text-center mr-4">
+                                    <span class="block text-xs font-bold text-slate-400 uppercase">Oct</span>
+                                    <span class="block text-2xl font-bold text-church-purple">25</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800">Sunday School Exams</h4>
+                                    <p class="text-sm text-slate-600 mt-1">End of term examinations for grades 1 through
+                                        11.</p>
+                                </div>
+                            </div>
+
+                            <!-- Event 2 -->
+                            <div class="flex items-start border-l-2 border-church-purple pl-4 pb-4">
+                                <div class="w-16 flex-shrink-0 text-center mr-4">
+                                    <span class="block text-xs font-bold text-slate-400 uppercase">Nov</span>
+                                    <span class="block text-2xl font-bold text-church-purple">01</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800">All Saints' Day Mass</h4>
+                                    <p class="text-sm text-slate-600 mt-1">Special mass involving the children's choir.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all
+            document.querySelectorAll('section[id^="section-"]').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('block');
+            });
+
+            // Show target
+            const target = document.getElementById('section-' + sectionId);
+            if (target) {
+                target.classList.remove('hidden');
+                target.classList.add('block');
+                target.classList.add('animate-fade-in'); // assuming tailwind config has this if not it'll just show
+            }
+
+            // Update title
+            const titles = {
+                'notices': 'Notice Board',
+                'lectures': 'My Lectures',
+                'attendance': 'Attendance Record',
+                'calendar': 'Church Calendar'
+            };
+            document.getElementById('page-title').innerText = titles[sectionId];
+
+            // Update active nav state
+            document.querySelectorAll('aside nav a').forEach(el => {
+                el.classList.remove('bg-white/10', 'text-white');
+                el.classList.add('text-white/80');
+            });
+            event.currentTarget.classList.add('bg-white/10', 'text-white');
+            event.currentTarget.classList.remove('text-white/80');
+        }
+    </script>
+</body>
+
+</html>
